@@ -80,3 +80,38 @@ public class Solution {
         return t;
     }
 }
+解法2.2(只使用解法2的第一个判断语句，本质上一样！)：
+/**
+ * Definition for binary tree
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+import java.util.HashMap;
+import java.util.Arrays;
+public class Solution {
+    public TreeNode reConstructBinaryTree(int [] pre,int [] in) {
+        HashMap<Integer, Integer> m = new HashMap<Integer, Integer>();
+        for(int i=0;i<in.length;i++){
+            m.put(in[i],i);
+        }
+        TreeNode t = reConstructBinaryTree_son(m,pre,0,pre.length-1,in,0,in.length-1);
+        return t;
+    }
+    public TreeNode reConstructBinaryTree_son(HashMap<Integer, Integer> m,int [] pre,int preStart,int preEnd,int [] in,int inStart,int inEnd){
+        if(inStart>inEnd){
+            return null;
+        }
+        int root = pre[preStart];
+        int root_index = m.get(root);
+        TreeNode t = new TreeNode(root);
+        int left_length = root_index-inStart;
+        int right_length = inEnd-root_index;
+        t.left = reConstructBinaryTree_son(m,pre,preStart+1,preStart+left_length,in,inStart,root_index-1);
+        t.right = reConstructBinaryTree_son(m,pre,preStart+left_length+1,preEnd,in,root_index+1,inEnd);
+        return t;
+    }
+}
