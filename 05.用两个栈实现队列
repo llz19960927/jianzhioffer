@@ -1,0 +1,26 @@
+思路：
+取元素时：
+如果stack2里有元素，先取stack2里的元素，stack1不变。
+如果stack2为空，必须把stack1的所有元素取到stack2里，再返回一个元素。
+
+解法1：
+import java.util.Stack;
+public class Solution {
+    Stack<Integer> stack1 = new Stack<Integer>();
+    Stack<Integer> stack2 = new Stack<Integer>();
+    
+    public void push(int node) {
+        stack1.push(node);
+    }
+    
+    public int pop() {
+        if(!stack2.empty()){
+            return stack2.pop();
+        }
+        while(!stack1.isEmpty()){
+            stack2.push(stack1.pop());
+        }
+        return stack2.pop();
+    }
+}
+
