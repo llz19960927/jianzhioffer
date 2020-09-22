@@ -69,7 +69,7 @@ public class Solution {
         int root = pre[preStart];
         int root_index = m.get(root);
         TreeNode t = new TreeNode(root);
-        if (preStart==preEnd){//当一直向下遍历至子结点(左右子树都没有)时，preStart会等于preEnd，此时直接输出left/right都为null的对象即可。也可以使用(inStart==inEnd)判断，都一样！
+        if (preStart==preEnd){//遍历至子结点(左右子树都没有)时，preStart会等于preEnd，此时直接输出left/right都为null的对象即可。也可以使用(inStart==inEnd)判断，都一样！也可以删去此判断语句，只使用前面的判断语句！
             return t;
         }else{
             int left_length = root_index-inStart;
