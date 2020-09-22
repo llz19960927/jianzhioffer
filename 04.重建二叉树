@@ -4,4 +4,83 @@
 
 思路：前序遍历的第一个结点是根节点，根据根结点在中序遍历的位置可以得到左子树和右子树的中序遍历序列，根据左子树和右子树的序列长度，可以在前序遍历里得到左子树和右子树的前序遍历序列，递归即可。
 
-解法一（）：
+解法一（对原函数一直递归，时间复杂度n^2，空间复杂度n^2）：
+/**
+ * Definition for binary tree
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+import java.util.HashMap;
+import java.util.Arrays;
+public class Solution {
+    public TreeNode reConstructBinaryTree(int [] pre,int [] in) {
+        HashMap<Integer, Integer> m = new HashMap<Integer, Integer>();
+        for(int i=0;i<in.length;i++){
+            m.put(in[i],i);
+        }
+        int root = pre[0];
+        int index = m.get(root);
+        TreeNode t = new TreeNode(root);
+        int [] l = Arrays.copyOfRange(in,0,index);
+        int [] r = Arrays.copyOfRange(in,index+1,in.length);
+        if (index==0){
+            t.left=null;
+        }else{
+            t.left = reConstructBinaryTree(Arrays.copyOfRange(pre,1,l.length+1),l);
+        }
+        if(index == in.length-1){
+            t.right=null;
+        }else{
+            t.right = reConstructBinaryTree(Arrays.copyOfRange(pre,l.length+1,pre.length),r);
+        }
+        return t;
+    }
+}
+
+解法2：
+/**
+ * Definition for binary tree
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+import java.util.HashMap;
+import java.util.Arrays;
+public class Solution {
+    public TreeNode reConstructBinaryTree(int [] pre,int [] in) {
+        HashMap<Integer, Integer> m = new HashMap<Integer, Integer>();
+        for(int i=0;i<in.length;i++){
+            m.put(in[i],i);
+        }
+        TreeNode t = reConstructBinaryTree_son(m,pre,0,pre.length-1,in,0,in.length-1);
+        return t;
+    }
+    public TreeNode reConstructBinaryTree_son(HashMap<Integer, Integer> m,int [] pre,int preStart,int preEnd,int [] in,int inStart,int inEnd){
+        if(preStart>preEnd){
+            return null;
+        }
+        int root = pre[preStart];
+        int root_index = m.get(root);
+        TreeNode t = new TreeNode(root);
+        if (preStart==preEnd){
+            return t;
+        }else{
+            int left_length = root_index-inStart;
+            int right_length = inEnd-root_index;
+            t.left = reConstructBinaryTree_son(m,pre,preStart+1,preStart+left_length,in,inStart,root_index-1);
+            t.right = reConstructBinaryTree_son(m,pre,preStart+left_length+1,preEnd,in,root_index+1,inEnd);
+        }
+        return t;
+    }
+}
+
+
+
+注意：这里的start/end是指针不是坐标（index）！
