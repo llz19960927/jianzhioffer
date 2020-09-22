@@ -41,7 +41,7 @@ public class Solution {
     }
 }
 
-解法2(定义一个新方法，不创建新对象，用改变坐标的方式代替创建不同子树)：
+解法2(定义一个新方法，不创建新对象，用改变坐标的方式代替创建不同子树，时间复杂度n,空间复杂度n)：
 /**
  * Definition for binary tree
  * public class TreeNode {
