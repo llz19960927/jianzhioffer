@@ -4,7 +4,7 @@
 
 思路：前序遍历的第一个结点是根节点，根据根结点在中序遍历的位置可以得到左子树和右子树的中序遍历序列，根据左子树和右子树的序列长度，可以在前序遍历里得到左子树和右子树的前序遍历序列，递归即可。
 
-解法一（对原函数一直递归，时间复杂度n^2，空间复杂度n^2）：
+解法一（对原方法一直递归，时间复杂度n^2，空间复杂度n^2）：
 /**
  * Definition for binary tree
  * public class TreeNode {
@@ -41,7 +41,7 @@ public class Solution {
     }
 }
 
-解法2：
+解法2(定义一个新方法，不创建新对象，用改变坐标的方式代替创建不同子树)：
 /**
  * Definition for binary tree
  * public class TreeNode {
@@ -63,13 +63,13 @@ public class Solution {
         return t;
     }
     public TreeNode reConstructBinaryTree_son(HashMap<Integer, Integer> m,int [] pre,int preStart,int preEnd,int [] in,int inStart,int inEnd){
-        if(preStart>preEnd){
+        if(preStart>preEnd){//判断：当根节点没有左子树或者没有右子树时，根节点root会出现在中序遍历的左端或者右端，此时继续调用reConstructBinaryTree_son方法会导致开始坐标大于结束坐标，返回null,也可以使用(inStart>inEnd)判断，都一样。
             return null;
         }
         int root = pre[preStart];
         int root_index = m.get(root);
         TreeNode t = new TreeNode(root);
-        if (preStart==preEnd){
+        if (preStart==preEnd){//当一直向下遍历至子结点(左右子树都没有)时，preStart会等于preEnd，此时直接输出left/right都为null的对象即可。也可以使用(inStart==inEnd)判断，都一样！
             return t;
         }else{
             int left_length = root_index-inStart;
@@ -80,7 +80,3 @@ public class Solution {
         return t;
     }
 }
-
-
-
-注意：这里的start/end是指针不是坐标（index）！
