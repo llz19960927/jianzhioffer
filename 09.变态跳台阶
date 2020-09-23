@@ -31,14 +31,13 @@ dp[n]  = dp[n-1]+dp[n-2]+......+dp[0];
 dp[n-1]=         dp[n-2]+......+dp[0];
 可以改进解法1，降低时间复杂度！
 
-解法2(时间复杂度n,空间复杂度n)：
+解法2(时间复杂度n,空间复杂度1)：
 public class Solution {
     public int JumpFloorII(int target) {
-        int[] steps = new int[target+1];
-        steps[1] = 1;
+        int a = 1;
         for(int i=2;i<=target;i++){
-            steps[i] = 2*steps[i-1];
+            a*=2;
         }
-        return steps[target];
+        return a;
     }
 }
