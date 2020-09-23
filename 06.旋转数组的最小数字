@@ -13,6 +13,7 @@ NOTE：给出的所有元素都大于0，若数组大小为0，请返回0。
                array[mid]<array[high]时，旋转点一定在[low,mid]中
                array[mid]=array[high]时，旋转点一定在[low,high-1]中：1.若旋转点x=high,虽然high--去掉了旋转点，但是因为array[mid]=array[high]，最后仍然可以返回旋转点的值。
                                                                    2.其他情况，显然可以用high--缩小范围。
+6.确定结果条件/循环条件：当low==high时得到旋转点，反推可得->while()内部循环语句为(low<high)。
 
 import java.util.ArrayList;
 public class Solution {
