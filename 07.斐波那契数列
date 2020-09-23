@@ -17,8 +17,13 @@ public class Solution {
         }
     }
 }
-★思路2(非递归)：
+★思路2(动态规划)：
 递归有很多重复计算，浪费性能。
+状态定义：元素值代表斐波那契数列的值
+转移方程：dp[i + 1] = dp[i] + dp[i - 1]d 
+初始状态：dp[0]=1, dp[1] = 1
+返回值：斐波那契数列的第n个数。
+
 解法2：
 public class Solution {
     public int Fibonacci(int n) {
@@ -52,7 +57,6 @@ public class Solution {
     }
 }
 解法2改进：
-
 public class Solution {
     public int Fibonacci(int n) {
         int sum;
@@ -66,5 +70,6 @@ public class Solution {
         return fib_1;
     }
 }
+
 
 
