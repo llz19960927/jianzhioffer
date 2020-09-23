@@ -2,11 +2,10 @@
 大家都知道斐波那契数列，现在要求输入一个整数n，请你输出斐波那契数列的第n项（从0开始，第0项为0，第1项是1）。
 n<=39
 
-思路：递归
+思路1：递归
 1.找极端情况：n==0/,n==1/2。
 2.调用递归。
-
-解法：
+解法1：
 public class Solution {
     public int Fibonacci(int n) {
         if(n==0){
@@ -18,3 +17,54 @@ public class Solution {
         }
     }
 }
+★思路2(非递归)：
+递归有很多重复计算，浪费性能。
+解法2：
+public class Solution {
+    public int Fibonacci(int n) {
+        if(n==0){
+            return 0;
+        }else if(n==1){
+            return 1;
+        }
+        int temp = 0;
+        int fib_1 = 0;
+        int fib_2 = 1;
+        for(int i=2;i<=n
+public class Solution {
+    public int Fibonacci(int n) {
+        int sum;
+        int fib_1 = 0;
+        int fib_2 = 1;
+        for(int i = 0; i < n; i++){
+            sum = (fib_1 + fib_2);
+            fib_1 = fib_2;
+            fib_2 = sum;
+        }
+        return fib_1;
+    }
+};i++){
+            temp = fib_2;
+            fib_2 = fib_1+fib_2;
+            fib_1 = temp;
+        }
+        return fib_2;
+    }
+}
+解法2改进：
+
+public class Solution {
+    public int Fibonacci(int n) {
+        int sum;
+        int fib_1 = 0;
+        int fib_2 = 1;
+        for(int i = 0; i < n; i++){
+            sum = (fib_1 + fib_2);
+            fib_1 = fib_2;
+            fib_2 = sum;
+        }
+        return fib_1;
+    }
+}
+
+
