@@ -1,0 +1,37 @@
+题目描述
+把一个数组最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。
+输入一个非递减排序的数组的一个旋转，输出旋转数组的最小元素。
+例如数组[3,4,5,1,2]为[1,2,3,4,5]的一个旋转，该数组的最小值为1。
+NOTE：给出的所有元素都大于0，若数组大小为0，请返回0。
+
+思路：（二分法）：
+1.先确定用二分法。
+2.找极端情况：1.无旋转递增。2.一部分连续数大小相等。
+3.确定判断条件：二分法中array[mid]和谁比呢？和array[low]比的话，遇到上面的'无旋转递增'情况会出问题(直接跳过旋转点),所以需要和array[high]比较。
+4.确定判断条件：二分法中比较时'='什么时候用？假如遇到上面的'一部分连续数大小相等'情况，会出现array[mid]=array[high]，此时要么mid在被旋转数列，要么在无旋转数列，需要单独讨论。
+5.确定执行语句：array[mid]>array[high]时，旋转点一定在[mid+1,high]中
+               array[mid]<array[high]时，旋转点一定在[low,mid]中
+               array[mid]=array[high]时，旋转点一定在[low,high-1]中.
+
+import java.util.ArrayList;
+public class Solution {
+    public int minNumberInRotateArray(int [] array) {
+        int low = 0;
+        int high = array.length-1;
+        while(low<high){
+            int mid = (high+low)/2;
+            if(array[mid]>array[high]){
+                low = mid+1;
+            }else if(array[mid]<array[high]){
+                high = mid;
+            }else{
+                high--;
+            }
+        }
+        return array[low];
+    }
+}
+
+
+
+
