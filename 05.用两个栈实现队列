@@ -3,7 +3,7 @@
 如果stack2里有元素，先取stack2里的元素，stack1不变。
 如果stack2为空，必须把stack1的所有元素取到stack2里，再返回一个元素。
 
-解法1：
+牛客网：
 import java.util.Stack;
 public class Solution {
     Stack<Integer> stack1 = new Stack<Integer>();
@@ -24,3 +24,27 @@ public class Solution {
     }
 }
 
+LeetCode：
+class CQueue {
+    private Stack<Integer> stack1;
+    private Stack<Integer> stack2;
+    
+    public CQueue() {
+        stack1 = new Stack<>();
+        stack2 = new Stack<>();
+    }
+    
+    public void appendTail(int value) {
+        stack1.push(value);
+    }
+    
+    public int deleteHead() {
+        if(!stack2.empty()){
+            return stack2.pop();
+        }
+        while(!stack1.isEmpty()){
+            stack2.push(stack1.pop());
+        }
+        return stack2.isEmpty() ? -1 : stack2.pop();
+    }
+}
